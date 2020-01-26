@@ -13,4 +13,9 @@ After you can set the alias with:
 to personalize your git. 
 
 # install eslint stardard to typescript 
-npm install --save-dev eslint@6 eslint-plugin-standard@4 eslint-plugin-promise@4 eslint-plugin-import@2 eslint-plugin-node@9 @typescript-eslint/eslint-plugin@2 eslint-config-standard-with-typescript
+npm install --save-dev eslint@6 eslint-plugin-standard@4 eslint-plugin-promise@4 eslint-plugin-import@2 eslint-plugin-node@9 @typescript-eslint/eslint-plugin@2 eslint-config-standard-with-typescript 
+
+# lint-staged 
+Just the staged area are verify in the pre-commit. All new files are correct formated 
+Husky call .lintstagedrc.json and sets the src path to verify. 
+That's remove incorrect commits on the project.

@@ -4,7 +4,8 @@
   "description": "Complete course of backend using typescript",
   "main": "test.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest", 
+    "test:staged":"jest"
   },
   "repository": {
     "type": "git",

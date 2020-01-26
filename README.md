@@ -18,4 +18,7 @@ npm install --save-dev eslint@6 eslint-plugin-standard@4 eslint-plugin-promise@4
 # lint-staged 
 Just the staged area are verify in the pre-commit. All new files are correct formated 
 Husky call .lintstagedrc.json and sets the src path to verify. 
-That's remove incorrect commits on the project.
+That's remove incorrect commits on the project. 
+
+# Clean Arch 
+![Image description](typescript-course/tdd-clean.png)

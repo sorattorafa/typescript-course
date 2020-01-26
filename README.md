@@ -21,4 +21,4 @@ Husky call .lintstagedrc.json and sets the src path to verify.
 That's remove incorrect commits on the project. 
 
 # Clean Arch 
-![Image description](tdd-clean.png)
+![Clean Arch](tdd-clean.png)

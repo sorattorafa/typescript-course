@@ -1,2 +1,0 @@
-git config --global core.editor code -> seta o code para editar
-git config --global --edit -> abre edicao

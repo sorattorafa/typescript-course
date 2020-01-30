@@ -6,6 +6,8 @@ interface SutTypes{
   sut: SignUpController
   emailValidatorStub: EmailValidator
 }
+// create interfaces to EmailValidator
+// can implement personalized interfaces
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
     isValid (email: string): boolean {

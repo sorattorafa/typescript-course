@@ -8,6 +8,7 @@ interface SutTypes{
   emailValidatorStub: EmailValidator
 }
 const makeSut = (): SutTypes => {
+  // inject a mock version of email validator and injection a dependencies
   class EmailValidatorStub implements EmailValidator {
     isValid (email: string): boolean {
       return true

@@ -1,11 +1,9 @@
 import { SignUpController } from './signup'
 import { EmailValidator } from '../protocols'
 import { MissingParamError, InvalidParamError, ServerError } from '../errors'
+import { AccountModel } from '../../domain/models/account'
+import { AddAccountModel, AddAccount } from '../../domain/usecases/add-account'
 
-interface SutTypes{
-  sut: SignUpController
-  emailValidatorStub: EmailValidator
-}
 // create interfaces to EmailValidator
 // can implement personalized interfaces
 const makeEmailValidator = (): EmailValidator => {
@@ -16,6 +14,23 @@ const makeEmailValidator = (): EmailValidator => {
   }
   return new EmailValidatorStub()
 }
+// add account is a use case, business rule
+const makeAddAccount = (): AddAccount => {
+  // stub is a mocking version of add acoount
+  class AddAccountStub implements AddAccount {
+    add (account: AddAccountModel): AccountModel {
+      const fakeAccount = {
+        id: 'valid_id',
+        name: 'valid_name',
+        email: 'valid_email@email.com',
+        password: 'valid_password'
+      }
+      return fakeAccount
+    }
+  }
+  return new AddAccountStub()
+}
+
 /*
 make validator with an error are change to a mock implementation once
 const makeEmailValidatorWithError = (): EmailValidator => {
@@ -28,13 +43,20 @@ const makeEmailValidatorWithError = (): EmailValidator => {
 }
 */
 
+interface SutTypes{
+  sut: SignUpController
+  emailValidatorStub: EmailValidator
+  addAccountStub: AddAccount
+}
 const makeSut = (): SutTypes => {
   // inject a mock version of email validator and injection a dependencies
   const emailValidatorStub = makeEmailValidator()
-  const sut = new SignUpController(emailValidatorStub)
+  const addAccountStub = makeAddAccount()
+  const sut = new SignUpController(emailValidatorStub, addAccountStub)
   return {
     sut,
-    emailValidatorStub
+    emailValidatorStub,
+    addAccountStub
   }
 }
 
@@ -163,5 +185,25 @@ describe('SignUp Controller', () => {
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError()) // compare values of objects
+  })
+
+  test('Should Call AddAccount with correct values', () => {
+    const { sut, addAccountStub } = makeSut()
+    // mock manually addAccountStub is a instace of a class
+    const isValidSpy = jest.spyOn(addAccountStub, 'add')
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@email.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
+    }
+    sut.handle(httpRequest)
+    expect(isValidSpy).toHaveBeenCalledWith({
+      name: 'any_name',
+      email: 'any_email@email.com',
+      password: 'any_password'
+    })
   })
 })

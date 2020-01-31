@@ -16,7 +16,8 @@ const makeEmailValidator = (): EmailValidator => {
   }
   return new EmailValidatorStub()
 }
-
+/*
+make validator with an error are change to a mock implementation once
 const makeEmailValidatorWithError = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
     isValid (email: string): boolean {
@@ -25,6 +26,7 @@ const makeEmailValidatorWithError = (): EmailValidator => {
   }
   return new EmailValidatorStub()
 }
+*/
 
 const makeSut = (): SutTypes => {
   // inject a mock version of email validator and injection a dependencies
@@ -131,8 +133,10 @@ describe('SignUp Controller', () => {
   })
 
   test('Should return 500 if EmailValidator Throws', () => {
-    const emailValidatorStub = makeEmailValidatorWithError()
-    const sut = new SignUpController(emailValidatorStub)
+    const { sut, emailValidatorStub } = makeSut()
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
+      throw new Error()
+    })
     const httpRequest = {
       body: {
         name: 'any_name',

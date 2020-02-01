@@ -1,5 +1,5 @@
-import { MissingParamError, InvalidParamError } from '../../errors'
-import { badRequest, serverError, ok } from '../../helpers/http-helper'
+import { MissingParamError, InvalidParamError } from '../errors'
+import { badRequest, serverError, ok } from '../helpers/http-helper'
 import { EmailValidator, Controller, HttpRequest, HttpResponse, AddAccount } from './signup-protocols'
 
 // production class

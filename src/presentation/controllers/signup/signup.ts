@@ -39,6 +39,8 @@ export class SignUpController implements Controller {
       return (ok(account))
       // here all data is valid, params and password = passwordConfirmation
     } catch (error) {
+      // forcar o erro e mostralo
+      console.log(error)
       return serverError()
     }
   }

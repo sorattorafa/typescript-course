@@ -2,7 +2,6 @@ import { MongoHelper } from '../helpers/mongo-helper'
 import { AccountMongoRepository } from './account'
 
 describe('Account Mongo Repository', () => {
-
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })
@@ -28,8 +27,7 @@ describe('Account Mongo Repository', () => {
       _id: undefined
     }
     const account = await sut.add(newAccount)
-    const { _id, ...accountWithOutId } = newAccount
-    const testObject = Object.assign({}, accountWithOutId, { id: _id })
+    const testObject = MongoHelper.map(newAccount)
     expect(account).toStrictEqual(testObject)
   })
 })

@@ -1,4 +1,4 @@
-import { MongoHelper } from '../../helpers/mongo-helper'
+import { MongoHelper } from '../helpers/mongo-helper'
 import { AccountMongoRepository } from './account'
 
 describe('Account Mongo Repository', () => {
@@ -8,13 +8,17 @@ describe('Account Mongo Repository', () => {
   afterAll(async () => {
     await MongoHelper.disconnect()
   })
-  test('Should return an account on success', () => {
+  test('Should return an account on success', async () => {
     const sut = new AccountMongoRepository()
-    const account = sut.add({
-      name: '',
-      email: '',
-      password: ''
-    })
-    expect(account).toBeTruthy()
+    const newAccount = {
+      name: 'any_name',
+      email: 'any_email@email.com',
+      password: 'any_password',
+      _id: undefined
+    }
+    const account = await sut.add(newAccount)
+    const { _id, ...accountWithOutId } = newAccount
+    const testObject = Object.assign({}, accountWithOutId, { id: _id })
+    expect(account).toStrictEqual(testObject)
   })
 })

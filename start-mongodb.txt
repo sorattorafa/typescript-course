@@ -1,0 +1,2 @@
+ sudo systemctl unmask mongodb
+ sudo service mongodb start

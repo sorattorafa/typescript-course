@@ -40,8 +40,8 @@ export class SignUpController implements Controller {
       // here all data is valid, params and password = passwordConfirmation
     } catch (error) {
       // forcar o erro e mostralo
-      console.log(error)
-      return serverError()
+      // console.log(error)
+      return serverError(error)
     }
   }
 }

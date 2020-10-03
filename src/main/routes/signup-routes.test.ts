@@ -12,13 +12,13 @@ describe('SignUp Routes', () => {
   })
 
   beforeEach(async () => {
-    const accountCollection = MongoHelper.getCollection('accounts')
+    const accountCollection = await MongoHelper.getCollection('accounts')
     await accountCollection.deleteMany({})
   })
   test('Should return an account on success', async () => {
     const obj = {
       name: 'Rafael Rampim Soratto',
-      email: 'rampimsoratto@gmail.com',
+      email: 'rafaloko123@gmail.com',
       password: '123',
       passwordConfirmation: '123'
     }
